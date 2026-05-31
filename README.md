@@ -1,106 +1,40 @@
-@startuml
-skinparam classAttributeIconSize 0
-skinparam monochrome false
-skinparam packageStyle rectangle
+# CSE402: Software Engineering Lab
+## Assignment on Creational Design Patterns (Abstract Factory)
 
-' --- INTERFACES & PRODUCTS ---
+This project extends an existing Java implementation of the **Abstract Factory Design Pattern** by adding support for a new product family: **Plane**.
 
-interface Car {
-    + getmileage() : void
-    + drive() : void
-}
+---
 
-class Sedan implements Car {
-    + getmileage() : void
-    + drive() : void
-}
+## 📊 System Architecture & UML Visualization
 
-class SUV implements Car {
-    + getmileage() : void
-    + drive() : void
-}
+Below is the dynamically generated **UML Class Diagram** showing the updated system structure. It includes the new `Plane` family (`Boeing`, `Airbus`) and the new `Planefactory`, mapping directly to the requirements based on `UML_2.jpg`.
 
-interface Boat {
-    + getweight() : void
-    + row() : void
-}
+![Updated Abstract Factory UML Diagram](https://www.plantuml.com/plantuml/svg/bPBDRi8m48Rl_XNSRv1H2W92e8Y5Hfe4Y64IebXpS6KMc-X1bQ1m9_lzvU4C3tU-lz_ttM6pY8pD0bHaqFAn-K0r7g7Oun_7I835i7iAn4fL1G6bO9HAs0_mB2YFjWfU-r9Z4I03O26m1T5wG8I-1Blyw62gB1-m49iWw2vW67Sj6T8wM1-O49mYyZ5O6P_7ZlwK8Y_8X5wS7ApyC7AnC5AnS_OoySbyC3AmG3_yM5_A1e_8K5AnApyCS3v_3t_7RkwK6Y_8X_wS3ApyC5AmO5AmS_Oox_K_v7X_N6kX_7Vpy_W0)
 
-class SpeedBoat implements Boat {
-    + getweight() : void
-    + row() : void
-}
+---
 
-class FishingBoat implements Boat {
-    + getweight() : void
-    + row() : void
-}
+## 🛠️ Modifications Implemented
 
-' --- NEWLY ADDED PLANE FAMILY ---
-interface Plane {
-    + fly() : void
-    + getCapacity() : int
-}
+As specified in `Assignment-1.pdf`, the following modifications and additions have been introduced:
 
-class Boeing implements Plane {
-    + fly() : void
-    + getCapacity() : int
-}
+### 1. New Product Family (Plane)
+- **`Plane` (Interface):** Declares core behaviors for all aircraft components (`fly()` and `getCapacity()`).
+- **`Boeing` (Concrete Class):** Implements `Plane`, providing specific execution logic for Boeing aircraft.
+- **`Airbus` (Concrete Class):** Implements `Plane`, providing specific execution logic for Airbus aircraft.
 
-class Airbus implements Plane {
-    + fly() : void
-    + getCapacity() : int
-}
+### 2. Factory Layer Modifications
+- **`AbstractFactory` (Updated):** Added the abstract factory method `public abstract Plane getPlane(String plane);` to enforce conformity across all sub-factories.
+- **`Carfactory` & `Boatfactory` (Updated):** Overrode the new `getPlane()` method to return `null`, keeping their core product boundaries secure.
+- **`Planefactory` (New Class):** Extends/Implements `AbstractFactory` to handle instance creation requests specifically for `"BOEING"` and `"AIRBUS"`.
 
-' --- FACTORIES ---
+### 3. Client & Demo Modifications
+- **`Producer` (Updated):** Enhanced the control flow within `getFactory(String choice)` to return an instance of `Planefactory` whenever `"PLANE"` is requested.
+- **`FactoryDemo` (Updated):** Included testing routines that request `Planefactory`, instantiate both `Boeing` and `Airbus` objects, and execute their corresponding methods to verify runtime behavior.
 
-interface AbstractFactory {
-    + getCar(car : String) : Car
-    + getBoat(boat : String) : Boat
-    + getPlane(plane : String) : Plane
-}
+---
 
-class Carfactory implements AbstractFactory {
-    + getCar(car : String) : Car
-    + getBoat(boat : String) : Boat
-    + getPlane(plane : String) : Plane
-}
+## 📦 How to Run the Project
 
-class Boatfactory implements AbstractFactory {
-    + getBoat(boat : String) : Boat
-    + getCar(car : String) : Car
-    + getPlane(plane : String) : Plane
-}
-
-' --- NEWLY ADDED PLANE FACTORY ---
-class Planefactory implements AbstractFactory {
-    + getPlane(plane : String) : Plane
-    + getCar(car : String) : Car
-    + getBoat(boat : String) : Boat
-}
-
-' --- CLIENT & DEMO ---
-
-class Producer {
-    + getFactory(factory : String) : AbstractFactory
-}
-
-class FactoryDemo {
-    + main(args : String[]) : void
-}
-
-' --- RELATIONSHIPS & CREATES ---
-
-Carfactory --> Sedan : creates
-Carfactory --> SUV : creates
-
-Boatfactory --> SpeedBoat : creates
-Boatfactory --> FishingBoat : creates
-
-' New Connections
-Planefactory --> Boeing : creates
-Planefactory --> Airbus : creates
-
-Producer .> AbstractFactory : uses
-FactoryDemo .> Producer : uses
-
-@endum
+1. Open the project inside your preferred Java IDE (Eclipse/IntelliJ/NetBeans) or run via terminal.
+2. Compile all `.java` source files.
+3. Execute the `FactoryDemo` class to view the terminal logs showcasing sequential object allocation for Cars, Boats, and Planes.
