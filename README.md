@@ -1,5 +1,6 @@
 ```mermaid
 classDiagram
+    %% 1. CLASSES AND INTERFACES DECLARATION
     class AbstractFactory {
         <<interface>>
         +getCar(car : String) : Car
@@ -81,7 +82,7 @@ classDiagram
         +main(args : String[]) : void
     }
 
-    %% Relationships
+    %% 2. RELATIONSHIPS WITH DIRECTIONS FOR CLEAN LAYOUT
     Sedan ..|> Car
     SUV ..|> Car
     SpeedBoat ..|> Boat
@@ -102,3 +103,23 @@ classDiagram
 
     Producer ..> AbstractFactory : uses
     FactoryDemo ..> Producer : uses
+
+    %% 3. COLOR THEMES AND STYLES (UML_4 Matching)
+    style AbstractFactory fill:#E8DAEF,stroke:#7D3C98,stroke-width:2px,color:#000
+    style Car fill:#E8DAEF,stroke:#7D3C98,stroke-width:2px,color:#000
+    style Boat fill:#E8DAEF,stroke:#7D3C98,stroke-width:2px,color:#000
+    style Plane fill:#E8DAEF,stroke:#7D3C98,stroke-width:2px,color:#000
+
+    style Sedan fill:#D6EAF8,stroke:#2E86C1,stroke-width:2px,color:#000
+    style SUV fill:#D6EAF8,stroke:#2E86C1,stroke-width:2px,color:#000
+    style SpeedBoat fill:#D6EAF8,stroke:#2E86C1,stroke-width:2px,color:#000
+    style FishingBoat fill:#D6EAF8,stroke:#2E86C1,stroke-width:2px,color:#000
+    style Boeing fill:#D6EAF8,stroke:#2E86C1,stroke-width:2px,color:#000
+    style Airbus fill:#D6EAF8,stroke:#2E86C1,stroke-width:2px,color:#000
+
+    style Carfactory fill:#D5F5E3,stroke:#27AE60,stroke-width:2px,color:#000
+    style Boatfactory fill:#D5F5E3,stroke:#27AE60,stroke-width:2px,color:#000
+    style Planefactory fill:#D5F5E3,stroke:#27AE60,stroke-width:2px,color:#000
+
+    style Producer fill:#FCF3CF,stroke:#F39C12,stroke-width:2px,color:#000
+    style FactoryDemo fill:#FADBD8,stroke:#CB4335,stroke-width:2px,color:#000
